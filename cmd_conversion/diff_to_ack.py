@@ -8,8 +8,8 @@ FWD_VEL_LOW = 1e-3 # m/s
 ANG_VEL_LOW = 1e-6 # rad/s
 DELTA_MAX = 0.69   # rad
 PUBLISH_FREQ = 1   # Hz
-FWD_VEL_DIFF = 1.0
-ANG_VEL_DIFF = 0.4
+FWD_VEL_DIFF = 0.5
+ANG_VEL_DIFF = 0.5
 TEST = True
 
 class DiffToAck(Node):
@@ -44,16 +44,16 @@ class DiffToAck(Node):
         if np.abs(self.fwd_vel_diff) > FWD_VEL_LOW:
             msg.linear.x = self.fwd_vel_diff
             msg.angular.z = np.arctan(self.ang_vel_diff*WHEEL_BASE/self.fwd_vel_diff)
-            print("nominal case")
+            #print("nominal case")
         else:
             if np.abs(self.ang_vel_diff) < ANG_VEL_LOW:
                 msg.linear.x = 0.0
                 msg.angular.z = 0.0
-                print("not moving case")
+                #print("not moving case")
             else:
                 msg.angular.z = np.sign(self.ang_vel_diff)*np.pi/2
                 msg.linear.x = self.ang_vel_diff/(np.tan(DELTA_MAX)/WHEEL_BASE)
-                print("spinning on the spot case")
+                #print("spinning on the spot case")
 
         self.ack_cmd_pub.publish(msg)
         self.get_logger().info(f"Published forward velocity: {msg.linear.x}, steer angle: {msg.angular.z}")
