@@ -36,8 +36,6 @@ I included the `cmd_converter.service` file in the `config` folder and an instal
 You can pull this repo inside a folder in the root of your ros workspace. Assuming the hunter workspace is in the home directory:
 ```bash
 cd ~/hunter_ws/src
-mkdir cmd_conversion
-cd cmd_conversion
 git clone https://github.com/lucajg/cmd_conversion.git
 ```
 
