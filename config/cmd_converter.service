@@ -1,0 +1,18 @@
+[Unit]
+Description=ROS2 Ackermann Converter Node
+After=network.target 
+
+[Service]
+User=ubuntu
+Group=ubuntu
+
+ExecStart=/bin/bash -c "source /opt/ros/humble/setup.bash && source /home/ubuntu/hunter_ws/install/setup.bash && ros2 launch cmd_conversion diff_to_ack.launch.py"
+
+Restart=always
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
